@@ -1,6 +1,6 @@
 /* Coord.pde
  * 
- * Coordinate unit for management of points in "3D" space
+ * Coordinate unit for management of points in "3D" space.
  * 
  * J Karstin Neill 01.23.2019
  */

@@ -37,6 +37,18 @@ public class Transform {
      this.setParent(p);
    }
    
+   public Coord location() {
+     return this.mLocation;
+   }
+   
+   public Coord rotation() {
+     return this.mRotation;
+   }
+   
+   public Coord scale() {
+     return this.mScale;
+   }
+   
    public void setLocation(Coord c) {
      this.mLocation = c;
    }
