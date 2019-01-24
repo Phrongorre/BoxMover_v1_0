@@ -2,7 +2,7 @@
  * 
  * World location object to aid in location nesting and managing complex combinations of location and rotation.
  * 
- * J Karstin Neill 01.23.2019
+ * J Karstin Neill 01.24.2019
  */
 
 public class Transform {
