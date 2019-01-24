@@ -6,31 +6,32 @@
  */
 
 public class Transform {
-  private Coord mLocation, mRotation, mScale;
+  private Coord mLocation, mScale;
+  private double mRotation;
   private Transform mParent;
    
    public Transform() {
      this.setLocation(new Coord());
-     this.setRotation(new Coord());
+     this.setRotation(0.0);
      this.setScale(new Coord(1.0, 1.0, 1.0));
      this.setParent(null);
    }
    
    public Transform(Transform p) {
      this.setLocation(new Coord());
-     this.setRotation(new Coord());
+     this.setRotation(0.0);
      this.setScale(new Coord(1.0, 1.0, 1.0));
      this.setParent(p);
    }
    
-   public Transform(Coord loc, Coord rot, Coord scl) {
+   public Transform(Coord loc, double rot, Coord scl) {
      this.setLocation(loc);
      this.setRotation(rot);
      this.setScale(scl);
      this.setParent(null);
    }
    
-   public Transform(Coord loc, Coord rot, Coord scl, Transform p) {
+   public Transform(Coord loc, double rot, Coord scl, Transform p) {
      this.setLocation(loc);
      this.setRotation(rot);
      this.setScale(scl);
@@ -38,27 +39,33 @@ public class Transform {
    }
    
    public Coord location() {
-     return this.mLocation;
+     if (this.parent() == null) return this.mLocation;
+     else return this.parent().location().plus(this.mLocation.rotated(this.parent().rotation()).scaledBy(this.parent().scale()));
    }
    
-   public Coord rotation() {
-     return this.mRotation;
+   public double rotation() {
+     if (this.parent() == null) return this.mRotation;
+     else return this.parent().rotation()+this.mRotation;
    }
    
    public Coord scale() {
      return this.mScale;
    }
    
-   public void setLocation(Coord c) {
-     this.mLocation = c;
+   public Transform parent() {
+     return this.mParent;
    }
    
-   public void setRotation(Coord c) {
-     this.mRotation = c;
+   public void setLocation(Coord loc) {
+     this.mLocation = loc;
    }
    
-   public void setScale(Coord c) {
-     this.mScale = c;
+   public void setRotation(double rot) {
+     this.mRotation = rot;
+   }
+   
+   public void setScale(Coord scl) {
+     this.mScale = scl;
    }
    
    public void setParent(Transform p) {

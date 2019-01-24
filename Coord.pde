@@ -14,10 +14,22 @@ public class Coord {
     this.setZ(0.0);
   }
   
+  public Coord(double x, double y) {
+    this.setX(x);
+    this.setY(y);
+    this.setZ(0.0);
+  }
+  
   public Coord(double x, double y, double z) {
     this.setX(x);
     this.setY(y);
     this.setZ(z);
+  }
+  
+  public Coord(Coord c) {
+    this.setX(c.x());
+    this.setY(c.y());
+    this.setZ(c.z());
   }
   
   public double x() {
@@ -66,5 +78,15 @@ public class Coord {
     if (d < 0.00 || d > 0.00) return this.times(1.0/d);
     else print("Cannot divide by zero!");
     return null;
+  }
+  
+  public Coord scaledBy(Coord c) {
+    Coord ret = new Coord(this.x()*c.x(), this.y()*c.y(), this.z()*c.z());
+    return ret;
+  }
+  
+  public Coord rotated(double angle) {
+    Coord ret = new Coord();
+    return ret;
   }
 }
