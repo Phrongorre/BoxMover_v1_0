@@ -14,6 +14,7 @@ public class Box {
      this.setTransform(new Transform());
      this.setSprite(new Sprite());
      this.setCollider(new Collider());
+     this.collider().transform().setParent(this.transform());
    }
    
    public Transform transform() {
@@ -38,5 +39,13 @@ public class Box {
    
    public void setCollider(Collider c) {
      this.mCollider = c;
+   }
+   
+   public void move(Coord c) {
+     
+   }
+   
+   public void rotate() {
+     
    }
 }

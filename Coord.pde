@@ -79,14 +79,13 @@ public class Coord {
     else print("Cannot divide by zero!");
     return null;
   }
-  
-  public Coord scaledBy(Coord c) {
-    Coord ret = new Coord(this.x()*c.x(), this.y()*c.y(), this.z()*c.z());
+
+  public Coord rotated(float angle) {
+    Coord ret = new Coord(this.x()*cos(angle)-this.y()*sin(angle), this.x()*sin(angle)+this.y()*cos(angle));
     return ret;
   }
   
-  public Coord rotated(double angle) {
-    Coord ret = new Coord();
-    return ret;
+  public Coord rotatedAbout(Coord pivot, float angle) {
+    return this.minus(pivot).rotated(angle).plus(pivot);
   }
 }
