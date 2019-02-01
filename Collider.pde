@@ -46,8 +46,14 @@ public class Collider {
   }
   
   public boolean contains(Coord c) {
-    //TODO: figure out location of c local to mTransform space.
+    float unrot = -this.transform().rotation();
+    Coord tl = this.transform().location().rotated(unrot);
+    Coord br = tl.plus(this.size());
+    Coord c0 = c.rotated(unrot);
     
+    if (c0.x() >= tl.x() && c0.x() <= br.x() &&
+        c0.y() >= tl.y() && c0.y() <= br.y())
+      return true;    
     return false;
   }
 }

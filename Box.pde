@@ -45,7 +45,7 @@ public class Box {
      
    }
    
-   public void rotate() {
+   public void rotate(float angle) {
      
    }
 }
