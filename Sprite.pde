@@ -20,7 +20,7 @@ public class Sprite {
     this.mImage = tmp;
   }
   
-  public void display() {
+  public void show() {
     //TODO: Read into image shearing and image loadPixels() method
     if (this.mImage != null) image(this.mImage, 0, 0);
   }

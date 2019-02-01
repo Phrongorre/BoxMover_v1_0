@@ -14,7 +14,6 @@ public class Box {
      this.setTransform(new Transform());
      this.setSprite(new Sprite());
      this.setCollider(new Collider());
-     this.collider().transform().setParent(this.transform());
    }
    
    public Transform transform() {
@@ -31,6 +30,7 @@ public class Box {
    
    public void setTransform(Transform t) {
      this.mTransform = t;
+     this.collider().transform().setParent(t);
    }
    
    public void setSprite(Sprite s) {
@@ -42,10 +42,14 @@ public class Box {
    }
    
    public void move(Coord c) {
-     
+     this.transform().translate(c);
    }
    
    public void rotate(float angle) {
+     this.transform().rotate(angle);
+   }
+   
+   public void show() {
      
    }
 }

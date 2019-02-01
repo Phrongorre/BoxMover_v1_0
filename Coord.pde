@@ -56,9 +56,19 @@ public class Coord {
     this.mZ = z;
   }
   
+  public void copy(Coord c) {
+    this.setX(c.x());
+    this.setY(c.y());
+    this.setZ(c.z());
+  }
+  
   public Coord plus(Coord c) {
     Coord ret = new Coord(this.x()+c.x(), this.y()+c.y(), this.z()+c.z());
     return ret;
+  }
+  
+  public void add(Coord c) {
+    this.copy(this.plus(c));
   }
   
   public Coord times(double m) {
@@ -66,12 +76,24 @@ public class Coord {
     return ret;
   }
   
-  public Coord negate() {
+  public void multiplyBy(double m) {
+    this.copy(this.times(m));
+  }
+  
+  public Coord negative() {
     return this.times(-1.0);
   }
   
+  public void negate() {
+    this.copy(this.negative());
+  }
+  
   public Coord minus(Coord c) {
-    return this.plus(c.negate());
+    return this.plus(c.negative());
+  }
+  
+  public void subtract(Coord c) {
+    this.copy(this.minus(c));
   }
   
   public Coord dividedBy(double d) {
@@ -79,13 +101,25 @@ public class Coord {
     else print("Cannot divide by zero!");
     return null;
   }
+  
+  public void divideBy(double d) {
+    this.copy(this.dividedBy(d));
+  }
 
   public Coord rotated(float angle) {
     Coord ret = new Coord(this.x()*cos(angle)-this.y()*sin(angle), this.x()*sin(angle)+this.y()*cos(angle));
     return ret;
   }
   
+  public void rotate(float angle) {
+    this.copy(this.rotated(angle));
+  }
+  
   public Coord rotatedAbout(Coord pivot, float angle) {
     return this.minus(pivot).rotated(angle).plus(pivot);
+  }
+  
+  public void rotateAbout(Coord pivot, float angle) {
+    this.copy(this.rotatedAbout(pivot, angle));
   }
 }

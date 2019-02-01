@@ -34,29 +34,74 @@ public class Transform {
      this.setParent(p);
    }
    
+   //Returns GLOBAL location Coord calculated using all encapsulating parents' Transform data
    public Coord location() {
      if (this.parent() == null) return this.mLocation;
      else return this.parent().location().plus(this.mLocation.rotated(this.parent().rotation()));
    }
    
+   //Specialized method which always returns LOCAL location Coord, regardless of parent's Transform data
+   public Coord locationLocal() {
+     return this.mLocation;
+   }
+   
+   //Returns GLOBAL rotation float calculated using all encapsulating parent's Transform data
    public float rotation() {
      if (this.parent() == null) return this.mRotation;
      else return this.parent().rotation()+this.mRotation;
+   }
+   
+   //Specialized method which always returns LOCAL rotation float, regardless of parent's Transform data
+   public float rotationLocal() {
+     return this.mRotation;
    }
    
    public Transform parent() {
      return this.mParent;
    }
    
+   //Set LOCAL location Coord object
    public void setLocation(Coord loc) {
-     this.mLocation = loc;
+     if (this.mLocation == null) this.mLocation = new Coord();
+     this.mLocation.copy(loc);
    }
    
+   //public void setLocationGlobal(Coord loc) {
+   //  if (this.mLocation == null) this.mLocation = new Coord();
+   //  this.mLocation.copy(this.parent().location().plus(loc.rotated(-this.parent().rotation())));
+   //}
+   
+   //Set LOCAL rotation float value
    public void setRotation(float rot) {
      this.mRotation = rot;
    }
    
+   //Set GLOBAL rotation float value
+   //(note: LOCAL rotation may not be equal to passed argument after execution takes place)
+   public void setRotationGlobal(float rot) {
+     this.mRotation = rot-this.parent().rotation();
+   }
+   
    public void setParent(Transform p) {
      this.mParent = p;
+   }
+   
+   //Apply linear translation relative to Transform's LOCAL space
+   //(note: changes value stored in Transform::mLocation)
+   public void translate(Coord c) {
+     this.mLocation.add(c);
+   }
+   
+   //Apply linear translation relative to GLOBAL space
+   //(note: changes value stored in Transform::mLocation)
+   //(note: changes to LOCAL location Coord may not be equivalent to passed Coord argument after execution takes place)
+   public void translateGlobal(Coord c) {
+     this.mLocation.add(c.rotated(-this.parent().rotation()));
+   }
+   
+   //Apply rotation to Transform's LOCAL/GLOBAL rotation
+   //(note: changes value stored in Transform::mRotation)
+   public void rotate(float rot) {
+     this.mRotation += rot;
    }
 }
