@@ -60,16 +60,23 @@ public class Transform {
      return this.mParent;
    }
    
-   //Set LOCAL location Coord object
+   //Set LOCAL location Coord values
    public void setLocation(Coord loc) {
      if (this.mLocation == null) this.mLocation = new Coord();
      this.mLocation.copy(loc);
    }
    
-   //public void setLocationGlobal(Coord loc) {
-   //  if (this.mLocation == null) this.mLocation = new Coord();
-   //  this.mLocation.copy(this.parent().location().plus(loc.rotated(-this.parent().rotation())));
-   //}
+   //Set GLOBAL location Coord values
+   //(note: LOCAL location Coord values may not be equal to passed argument after execution takes place)
+   public void setLocationGlobal(Coord loc) {
+     if (this.parent() == null) this.setLocation(loc);
+     else {
+       if (this.mLocation == null) this.mLocation = new Coord();
+       float rot0 = this.parent().rotation() - loc.angleOfIncidenceAbout(this.parent().location());
+       float dist = this.parent().location().distanceFrom(loc);
+       this.mLocation.copy(new Coord(dist*cos(rot0), dist*sin(rot0), loc.z()));
+     }
+   }
    
    //Set LOCAL rotation float value
    public void setRotation(float rot) {

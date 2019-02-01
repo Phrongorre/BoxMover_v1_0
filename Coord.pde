@@ -6,7 +6,7 @@
  */
 
 public class Coord {
-  private double mX, mY, mZ;
+  private float mX, mY, mZ;
   
   public Coord() {
     this.setX(0.0);
@@ -14,13 +14,13 @@ public class Coord {
     this.setZ(0.0);
   }
   
-  public Coord(double x, double y) {
+  public Coord(float x, float y) {
     this.setX(x);
     this.setY(y);
     this.setZ(0.0);
   }
   
-  public Coord(double x, double y, double z) {
+  public Coord(float x, float y, float z) {
     this.setX(x);
     this.setY(y);
     this.setZ(z);
@@ -32,27 +32,27 @@ public class Coord {
     this.setZ(c.z());
   }
   
-  public double x() {
+  public float x() {
     return this.mX;
   }
   
-  public double y() {
+  public float y() {
     return this.mY;
   }
   
-  public double z() {
+  public float z() {
     return this.mZ;
   }
   
-  public void setX(double x) {
+  public void setX(float x) {
     this.mX = x;
   }
   
-  public void setY(double y) {
+  public void setY(float y) {
     this.mY = y;
   }
   
-  public void setZ(double z) {
+  public void setZ(float z) {
     this.mZ = z;
   }
   
@@ -71,12 +71,12 @@ public class Coord {
     this.copy(this.plus(c));
   }
   
-  public Coord times(double m) {
+  public Coord times(float m) {
     Coord ret = new Coord(this.x()*m, this.y()*m, this.z()*m);
     return ret;
   }
   
-  public void multiplyBy(double m) {
+  public void multiplyBy(float m) {
     this.copy(this.times(m));
   }
   
@@ -96,13 +96,13 @@ public class Coord {
     this.copy(this.minus(c));
   }
   
-  public Coord dividedBy(double d) {
+  public Coord dividedBy(float d) {
     if (d < 0.00 || d > 0.00) return this.times(1.0/d);
     else print("Cannot divide by zero!");
     return null;
   }
   
-  public void divideBy(double d) {
+  public void divideBy(float d) {
     this.copy(this.dividedBy(d));
   }
 
@@ -121,5 +121,23 @@ public class Coord {
   
   public void rotateAbout(Coord pivot, float angle) {
     this.copy(this.rotatedAbout(pivot, angle));
+  }
+  
+  public float distance() {
+    return sqrt(pow(this.x(), 2)+pow(this.y(), 2)+pow(this.z(), 2));
+  }
+  
+  public float distanceFrom(Coord c) {
+    return c.minus(this).distance();
+  }
+  
+  //Returns angle from positive x-axis this Coord makes
+  public float angleOfIncidence() {
+    return atan(this.y()/this.x());
+  }
+  
+  //Returns angle from positive x-axis this Coord makes when interpreting passed argument as origin Coord
+  public float angleOfIncidenceAbout(Coord c) {
+    return this.minus(c).angleOfIncidence();
   }
 }
