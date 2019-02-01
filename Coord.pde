@@ -128,7 +128,7 @@ public class Coord {
   }
   
   public float distanceFrom(Coord c) {
-    return c.minus(this).distance();
+    return this.minus(c).distance();
   }
   
   //Returns angle from positive x-axis this Coord makes
