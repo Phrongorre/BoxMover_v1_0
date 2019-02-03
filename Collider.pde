@@ -45,6 +45,25 @@ public class Collider {
     this.mSize = s;
   }
   
+  public Coord topLeft() {
+    return this.transform().location();
+  }
+  
+  public Coord topRight() {
+    Coord x0 = new Coord(this.size().x(), 0);
+    return this.topLeft().plus(x0.rotated(this.transform().rotation()));
+  }
+  
+  public Coord bottomLeft() {
+    Coord y0 = new Coord(0, this.size().y());
+    return this.topLeft().plus(y0.rotated(this.transform().rotation()));
+  }
+  
+  public Coord bottomRight() {
+    Coord xy0 = new Coord(this.size());
+    return this.topLeft().plus(xy0.rotated(this.transform().rotation()));
+  }
+  
   public boolean contains(Coord c) {
     float unrot = -this.transform().rotation();
     Coord tl = this.transform().location().rotated(unrot);

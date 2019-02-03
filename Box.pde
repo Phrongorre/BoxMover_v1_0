@@ -13,7 +13,6 @@ public class Box {
    public Box() {
      this.setTransform(new Transform());
      this.setSprite(new Sprite());
-     this.setCollider(new Collider());
    }
    
    public Transform transform() {
@@ -30,6 +29,7 @@ public class Box {
    
    public void setTransform(Transform t) {
      this.mTransform = t;
+     if (this.collider() == null) this.setCollider(new Collider());
      this.collider().transform().setParent(t);
    }
    
@@ -50,6 +50,11 @@ public class Box {
    }
    
    public void show() {
-     
+     fill(0);
+     ellipse(this.transform().location().x(), this.transform().location().y(), 4, 4);
+     line(this.collider().topLeft().x(), this.collider().topLeft().y(), this.collider().topRight().x(), this.collider().topRight().y());
+     line(this.collider().topLeft().x(), this.collider().topLeft().y(), this.collider().bottomLeft().x(), this.collider().bottomLeft().y());
+     line(this.collider().topRight().x(), this.collider().topRight().y(), this.collider().bottomRight().x(), this.collider().bottomRight().y());
+     line(this.collider().bottomLeft().x(), this.collider().bottomLeft().y(), this.collider().bottomRight().x(), this.collider().bottomRight().y());
    }
 }

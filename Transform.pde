@@ -74,7 +74,7 @@ public class Transform {
        if (this.mLocation == null) this.mLocation = new Coord();
        float rot0 = this.parent().rotation() - loc.angleOfIncidenceAbout(this.parent().location());
        float dist = this.parent().location().distanceFrom(loc);
-       this.mLocation.copy(new Coord(dist*cos(rot0), dist*sin(rot0), loc.z()));
+       this.mLocation.copy(new Coord(dist*cos(rot0), dist*sin(rot0)));
      }
    }
    

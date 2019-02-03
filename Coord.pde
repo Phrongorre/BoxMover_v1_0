@@ -6,30 +6,20 @@
  */
 
 public class Coord {
-  private float mX, mY, mZ;
+  private float mX, mY;
   
   public Coord() {
     this.setX(0.0);
     this.setY(0.0);
-    this.setZ(0.0);
   }
   
   public Coord(float x, float y) {
     this.setX(x);
     this.setY(y);
-    this.setZ(0.0);
-  }
-  
-  public Coord(float x, float y, float z) {
-    this.setX(x);
-    this.setY(y);
-    this.setZ(z);
   }
   
   public Coord(Coord c) {
-    this.setX(c.x());
-    this.setY(c.y());
-    this.setZ(c.z());
+    this.copy(c);
   }
   
   public float x() {
@@ -40,10 +30,6 @@ public class Coord {
     return this.mY;
   }
   
-  public float z() {
-    return this.mZ;
-  }
-  
   public void setX(float x) {
     this.mX = x;
   }
@@ -52,18 +38,13 @@ public class Coord {
     this.mY = y;
   }
   
-  public void setZ(float z) {
-    this.mZ = z;
-  }
-  
   public void copy(Coord c) {
     this.setX(c.x());
     this.setY(c.y());
-    this.setZ(c.z());
   }
   
   public Coord plus(Coord c) {
-    Coord ret = new Coord(this.x()+c.x(), this.y()+c.y(), this.z()+c.z());
+    Coord ret = new Coord(this.x()+c.x(), this.y()+c.y());
     return ret;
   }
   
@@ -72,7 +53,7 @@ public class Coord {
   }
   
   public Coord times(float m) {
-    Coord ret = new Coord(this.x()*m, this.y()*m, this.z()*m);
+    Coord ret = new Coord(this.x()*m, this.y()*m);
     return ret;
   }
   
@@ -107,6 +88,7 @@ public class Coord {
   }
 
   public Coord rotated(float angle) {
+    angle *= PI/180.0;
     Coord ret = new Coord(this.x()*cos(angle)-this.y()*sin(angle), this.x()*sin(angle)+this.y()*cos(angle));
     return ret;
   }
@@ -124,7 +106,7 @@ public class Coord {
   }
   
   public float distance() {
-    return sqrt(pow(this.x(), 2)+pow(this.y(), 2)+pow(this.z(), 2));
+    return sqrt(pow(this.x(), 2)+pow(this.y(), 2));
   }
   
   public float distanceFrom(Coord c) {
