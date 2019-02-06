@@ -75,4 +75,16 @@ public class Collider {
       return true;    
     return false;
   }
+  
+  public void show() {
+    PShape s = createShape();
+    s.beginShape();
+    s.noFill();
+    s.vertex(this.topLeft().x(), this.topLeft().y());
+    s.vertex(this.topRight().x(), this.topRight().y());
+    s.vertex(this.bottomRight().x(), this.bottomRight().y());
+    s.vertex(this.bottomLeft().x(), this.bottomLeft().y());
+    s.endShape();
+    shape(s);
+  }
 }
